@@ -1,0 +1,11 @@
+import:
+    modelClass: Metadesignsolutions\Mdsoctoberseo\Models\Redirect
+    list: $/metadesignsolutions/mdsoctoberseo/models/redirect/columns.yaml
+    redirect: metadesignsolutions/mdsoctoberseo/redirectmanager
+    sessionKey: importExportSessionKey  # Ensure a session key is specified
+
+export:
+    modelClass: Metadesignsolutions\Mdsoctoberseo\Models\Redirect
+    list: $/metadesignsolutions/mdsoctoberseo/models/redirect/columns.yaml
+    redirect: metadesignsolutions/mdsoctoberseo/redirectmanager
+    sessionKey: importExportSessionKey  # Ensure a session key is specified

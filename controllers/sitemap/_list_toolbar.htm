@@ -1,0 +1,46 @@
+<div data-control="toolbar">
+  <button
+        type="button"
+        class="btn btn-success"
+        onclick="window.location.href='<?= Backend::url('system/settings/update/metadesignsolutions/mdsoctoberseo/settings') ?>'">
+        <i class="icon-settings"></i> Settings
+    </button>
+    <a
+        href="<?= Backend::url('metadesignsolutions/mdsoctoberseo/sitemap/create') ?>"
+        class="btn btn-primary">
+        <i class="icon-plus"></i>
+        <?= __("Create") ?>
+    </a>
+
+    <div class="toolbar-divider"></div>
+
+    <!-- Generate Sitemap Button -->
+    <a
+    href="javascript:;"
+    class="btn btn-success"
+    data-request="onGenerateSitemap">
+    <i class="icon-refresh"></i>
+    <?= __("Generate Sitemap") ?>
+</a>
+
+    <!-- Generate Robots.txt Button -->
+    <!-- <a
+    href="javascript:;"
+    class="btn btn-info"
+    data-request="onGenerateRobots">
+    <i class="icon-file-text-o"></i>
+    <?= __("Generate Robots.txt") ?>
+</a> -->
+    <div class="toolbar-divider"></div>
+
+    <button
+        class="btn btn-secondary"
+        data-request="onDelete"
+        data-request-confirm="<?= __("Are you sure you want to delete the selected items?") ?>"
+        data-list-checked-trigger
+        data-list-checked-request
+        disabled>
+        <i class="icon-trash"></i>
+        <?= __("Delete") ?>
+    </button>
+</div>

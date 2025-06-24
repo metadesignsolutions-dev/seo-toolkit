@@ -1,0 +1,294 @@
+<style>
+.seo-field-group {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+}
+
+.seo-field-group h5 {
+    margin-bottom: 15px;
+    color: #333;
+    border-bottom: 2px solid #007cba;
+    padding-bottom: 5px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.form-control:focus {
+    border-color: #007cba;
+    box-shadow: 0 0 0 0.2rem rgba(0, 124, 186, 0.25);
+}
+
+.character-count {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.character-count.warning {
+    color: #f39c12;
+}
+
+.character-count.danger {
+    color: #e74c3c;
+}
+
+.auto-fill-indicator {
+    font-size: 11px;
+    color: #28a745;
+    font-style: italic;
+    margin-top: 3px;
+}
+</style>
+
+<div class="seo-field-group">
+    <h5>📝 Basic SEO</h5>
+    
+    <div class="form-group">
+        <label for="seo_title">SEO Title</label>
+        <input type="text" 
+               id="seo_title" 
+               name="seo_title" 
+               class="form-control" 
+               value="{{ formModel.seo_title }}" 
+               maxlength="60"
+               placeholder="Enter SEO title (30-60 characters recommended)">
+        <div class="character-count" id="title-count">0/60</div>
+    </div>
+
+    <div class="form-group">
+        <label for="seo_description">Meta Description</label>
+        <textarea id="seo_description" 
+                  name="seo_description" 
+                  class="form-control" 
+                  rows="3" 
+                  maxlength="160"
+                  placeholder="Enter meta description (120-160 characters recommended)">{{ formModel.seo_description }}</textarea>
+        <div class="character-count" id="desc-count">0/160</div>
+    </div>
+
+    <div class="form-group">
+        <label for="seo_keywords">Keywords</label>
+        <input type="text" 
+               id="seo_keywords" 
+               name="seo_keywords" 
+               class="form-control" 
+               value="{{ formModel.seo_keywords }}"
+               placeholder="Enter keywords separated by commas">
+    </div>
+</div>
+
+<div class="seo-field-group">
+    <h5>📱 Open Graph (Social Media)</h5>
+    
+    <div class="form-group">
+        <label for="og_title">OG Title</label>
+        <input type="text" 
+               id="og_title" 
+               name="og_title" 
+               class="form-control" 
+               value="{{ formModel.og_title }}"
+               placeholder="Open Graph title for social sharing">
+        <div class="auto-fill-indicator" id="og-title-indicator">Auto-filled from SEO title</div>
+    </div>
+
+    <div class="form-group">
+        <label for="og_description">OG Description</label>
+        <textarea id="og_description" 
+                  name="og_description" 
+                  class="form-control" 
+                  rows="3"
+                  placeholder="Open Graph description for social sharing">{{ formModel.og_description }}</textarea>
+        <div class="auto-fill-indicator" id="og-desc-indicator">Auto-filled from meta description</div>
+    </div>
+
+    <div class="form-group">
+        <label for="og_image">OG Image</label>
+        <input type="text" 
+               id="og_image" 
+               name="og_image" 
+               class="form-control" 
+               value="{{ formModel.og_image }}"
+               placeholder="URL or path to Open Graph image">
+    </div>
+</div>
+
+<div class="seo-field-group">
+    <h5>🐦 Twitter/X Cards</h5>
+    
+    <div class="form-group">
+        <label for="twitter_title">Twitter Title</label>
+        <input type="text" 
+               id="twitter_title" 
+               name="twitter_title" 
+               class="form-control" 
+               value="{{ formModel.twitter_title }}"
+               placeholder="Twitter Card title">
+        <div class="auto-fill-indicator" id="twitter-title-indicator">Auto-filled from OG title</div>
+    </div>
+
+    <div class="form-group">
+        <label for="twitter_description">Twitter Description</label>
+        <textarea id="twitter_description" 
+                  name="twitter_description" 
+                  class="form-control" 
+                  rows="3"
+                  placeholder="Twitter Card description">{{ formModel.twitter_description }}</textarea>
+        <div class="auto-fill-indicator" id="twitter-desc-indicator">Auto-filled from OG description</div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Character count functions
+    function updateCharacterCount(input, counter, maxLength) {
+        const length = input.value.length;
+        counter.textContent = length + '/' + maxLength;
+        
+        counter.className = 'character-count';
+        if (length > maxLength * 0.9) {
+            counter.className += ' warning';
+        }
+        if (length > maxLength) {
+            counter.className += ' danger';
+        }
+    }
+
+    // Auto-fill functions
+    function autoFillField(sourceField, targetField, indicator) {
+        if (sourceField.value.trim() && !targetField.value.trim()) {
+            targetField.value = sourceField.value;
+            indicator.style.display = 'block';
+        }
+    }
+
+    function updateAutoFillIndicator(sourceField, targetField, indicator) {
+        if (sourceField.value === targetField.value) {
+            indicator.style.display = 'block';
+        } else {
+            indicator.style.display = 'none';
+        }
+    }
+
+    // Get form elements
+    const seoTitle = document.getElementById('seo_title');
+    const seoDesc = document.getElementById('seo_description');
+    const ogTitle = document.getElementById('og_title');
+    const ogDesc = document.getElementById('og_description');
+    const twitterTitle = document.getElementById('twitter_title');
+    const twitterDesc = document.getElementById('twitter_description');
+
+    // Get indicators
+    const ogTitleIndicator = document.getElementById('og-title-indicator');
+    const ogDescIndicator = document.getElementById('og-desc-indicator');
+    const twitterTitleIndicator = document.getElementById('twitter-title-indicator');
+    const twitterDescIndicator = document.getElementById('twitter-desc-indicator');
+
+    // Initialize character counts
+    if (seoTitle) updateCharacterCount(seoTitle, document.getElementById('title-count'), 60);
+    if (seoDesc) updateCharacterCount(seoDesc, document.getElementById('desc-count'), 160);
+
+    // SEO Title events
+    if (seoTitle) {
+        seoTitle.addEventListener('input', function() {
+            updateCharacterCount(this, document.getElementById('title-count'), 60);
+            
+            // Auto-fill OG title if empty
+            if (ogTitle && !ogTitle.value.trim()) {
+                ogTitle.value = this.value;
+                ogTitleIndicator.style.display = 'block';
+            }
+            
+            // Update indicator if OG title matches
+            if (ogTitle) {
+                updateAutoFillIndicator(this, ogTitle, ogTitleIndicator);
+            }
+        });
+    }
+
+    // SEO Description events
+    if (seoDesc) {
+        seoDesc.addEventListener('input', function() {
+            updateCharacterCount(this, document.getElementById('desc-count'), 160);
+            
+            // Auto-fill OG description if empty
+            if (ogDesc && !ogDesc.value.trim()) {
+                ogDesc.value = this.value;
+                ogDescIndicator.style.display = 'block';
+            }
+            
+            // Update indicator if OG description matches
+            if (ogDesc) {
+                updateAutoFillIndicator(this, ogDesc, ogDescIndicator);
+            }
+        });
+    }
+
+    // OG Title events
+    if (ogTitle) {
+        ogTitle.addEventListener('input', function() {
+            // Auto-fill Twitter title if empty
+            if (twitterTitle && !twitterTitle.value.trim()) {
+                twitterTitle.value = this.value;
+                twitterTitleIndicator.style.display = 'block';
+            }
+            
+            // Update indicators
+            if (seoTitle) {
+                updateAutoFillIndicator(seoTitle, this, ogTitleIndicator);
+            }
+            if (twitterTitle) {
+                updateAutoFillIndicator(this, twitterTitle, twitterTitleIndicator);
+            }
+        });
+    }
+
+    // OG Description events
+    if (ogDesc) {
+        ogDesc.addEventListener('input', function() {
+            // Auto-fill Twitter description if empty
+            if (twitterDesc && !twitterDesc.value.trim()) {
+                twitterDesc.value = this.value;
+                twitterDescIndicator.style.display = 'block';
+            }
+            
+            // Update indicators
+            if (seoDesc) {
+                updateAutoFillIndicator(seoDesc, this, ogDescIndicator);
+            }
+            if (twitterDesc) {
+                updateAutoFillIndicator(this, twitterDesc, twitterDescIndicator);
+            }
+        });
+    }
+
+    // Twitter Title events
+    if (twitterTitle) {
+        twitterTitle.addEventListener('input', function() {
+            updateAutoFillIndicator(ogTitle, this, twitterTitleIndicator);
+        });
+    }
+
+    // Twitter Description events
+    if (twitterDesc) {
+        twitterDesc.addEventListener('input', function() {
+            updateAutoFillIndicator(ogDesc, this, twitterDescIndicator);
+        });
+    }
+
+    // Initialize indicators
+    if (seoTitle && ogTitle) updateAutoFillIndicator(seoTitle, ogTitle, ogTitleIndicator);
+    if (seoDesc && ogDesc) updateAutoFillIndicator(seoDesc, ogDesc, ogDescIndicator);
+    if (ogTitle && twitterTitle) updateAutoFillIndicator(ogTitle, twitterTitle, twitterTitleIndicator);
+    if (ogDesc && twitterDesc) updateAutoFillIndicator(ogDesc, twitterDesc, twitterDescIndicator);
+});
+</script> 

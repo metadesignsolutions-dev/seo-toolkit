@@ -1,0 +1,30 @@
+columns:
+    site_title:
+        label: Site Title
+        type: text
+        searchable: true
+        sortable: true
+    
+    site_description:
+        label: Site Description
+        type: text
+        searchable: true
+        sortable: true
+    
+    meta_keywords:
+        label: Meta Keywords
+        type: text
+        searchable: true
+        sortable: true
+    
+    default_image:
+        label: Default OG Image
+        type: mediafinder
+        mode: image
+        sortable: false
+    
+    post_types:
+        label: Enabled Post Types
+        type: text
+        valueFrom: post_types
+        sortable: false 
