@@ -1,0 +1,79 @@
+
+<?php
+use Metadesignsolutions\Mdsoctoberseo\Classes\SeoScoreService;
+use Log;
+
+$model = $formModel ?? null;
+$scoreData = SeoScoreService::analyze($model);
+$score = $scoreData['score'];
+$suggestions = $scoreData['suggestions'];
+
+$scoreLabel = 'Poor';
+$scoreColor = '#dc3545';
+if ($score === 100) {
+    $scoreLabel = 'Excellent';
+    $scoreColor = '#007bff'; // Blue for excellent
+} elseif ($score >= 75) {
+    $scoreLabel = 'Good';
+    $scoreColor = '#28a745';
+} elseif ($score >= 50) {
+    $scoreLabel = 'Fair';
+    $scoreColor = '#ffc107';
+} elseif ($score >= 25) {
+    $scoreLabel = 'Needs Improvement';
+    $scoreColor = '#fd7e14';
+}
+?>
+
+<div id="seo-score-container" class="seo-score-container">
+    <div class="score-circle" style="background: <?= $scoreColor ?>">
+        <div class="score-value"><?= $score ?></div>
+        <div class="score-label"><?= $scoreLabel ?></div>
+    </div>
+    <div class="score-feedback">
+        <ul>
+            <?php foreach ($suggestions as $suggestion): ?>
+                <li>✔ <?= $suggestion ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>
+
+<style>
+.seo-score-container {
+    padding: 20px;
+    background: #f4f6f9;
+    border-radius: 12px;
+    text-align: center;
+}
+.score-circle {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    margin: auto;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+.score-value {
+    font-size: 28px;
+    font-weight: 700;
+}
+.score-label {
+    font-size: 12px;
+    margin-top: 4px;
+}
+.score-feedback ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #333;
+}
+.score-feedback li {
+    margin-bottom: 6px;
+}
+</style>

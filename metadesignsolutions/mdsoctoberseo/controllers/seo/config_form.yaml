@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: SEO Settings
+
+# Model Form Field configuration
+form: $/metadesignsolutions/mdsoctoberseo/models/seosettings/fields.yaml
+
+# Model Class name
+modelClass: Metadesignsolutions\Mdsoctoberseo\Models\SeoSettings
+
+# Default redirect location
+defaultRedirect: metadesignsolutions/mdsoctoberseo/seo
+
+# Create page
+create:
+    title: backend::lang.form.create_title
+    redirect: metadesignsolutions/mdsoctoberseo/seo/update/:id
+    redirectClose: metadesignsolutions/mdsoctoberseo/seo
+
+# Update page
+update:
+    title: backend::lang.form.update_title
+    redirect: metadesignsolutions/mdsoctoberseo/seo
+    redirectClose: metadesignsolutions/mdsoctoberseo/seo
+
+# Preview page
+preview:
+    title: backend::lang.form.preview_title
