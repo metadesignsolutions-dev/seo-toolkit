@@ -7,9 +7,8 @@ declare(strict_types=1);
  * Analyzes SEO score for a page.
  * @see https://metadesignsolutions.com/
  */
-namespace Metadesignsolutions\MdsOctoberSeo\Classes;
+namespace Metadesignsolutions\Mdsoctoberseo\Classes;
 
-use Metadesignsolutions\MdsOctoberSeo\Classes\LicenseService;
 use Metadesignsolutions\Mdsoctoberseo\Models\SeoSettings; // Import SeoSettings model
 use Exception;
 
