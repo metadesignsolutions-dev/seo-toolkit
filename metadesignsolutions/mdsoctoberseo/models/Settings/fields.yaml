@@ -1,7 +1,0 @@
-fields:
-    robots_txt:
-        label: Robots.txt Content
-        type: textarea
-        size: large
-        span: auto
-        comment: "Define your site's robots.txt rules here."
