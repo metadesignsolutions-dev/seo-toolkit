@@ -1,0 +1,173 @@
+<?php namespace Metadesignsolutions\Mdsoctoberseo\Models;
+
+use Model;
+use Cache;
+use File;
+use Cms\Classes\Page;
+use RainLab\Blog\Models\Post;
+use RainLab\Pages\Classes\Page as StaticPage;
+use System\Behaviors\SettingsModel;
+
+class SitemapSettings extends Model
+{
+    public $implement = ['System.Behaviors.SettingsModel'];
+    public $settingsCode = 'metadesignsolutions_mdsoctoberseo_sitemap';
+    public $settingsFields = 'fields.yaml';
+
+    public function initSettingsData()
+    {
+        $this->include_cms_pages = true;
+        $this->cms_pages_changefreq = 'weekly';
+        $this->cms_pages_priority = 0.8;
+        
+        $this->include_blog_posts = true;
+        $this->blog_posts_changefreq = 'weekly';
+        $this->blog_posts_priority = 0.8;
+        
+        $this->include_static_pages = true;
+        $this->static_pages_changefreq = 'monthly';
+        $this->static_pages_priority = 0.7;
+
+        // Initialize robots.txt and .htaccess content
+        $this->robots_txt = $this->getDefaultRobotsTxt();
+        $this->htaccess_content = $this->getDefaultHtaccess();
+    }
+
+    public function afterSave()
+    {
+        $this->saveRobotsTxt();
+        $this->saveHtaccess();
+    }
+
+    protected function saveRobotsTxt()
+    {
+        $content = self::get('robots_txt');
+        $content = str_replace('{site_url}', url('/'), $content);
+
+        $robotsPath = base_path('robots.txt');
+        \File::put($robotsPath, $content);
+        
+        // Cache the robots.txt for 24 hours
+        //Cache::put('robots.txt', $content, 1440);
+    }
+
+    protected function saveHtaccess()
+    {
+        $content = self::get('htaccess_content');
+        $htaccessPath = base_path('.htaccess');
+        File::put($htaccessPath, $content);
+    }
+
+    protected function getDefaultRobotsTxt()
+    {
+        return "User-agent: *\n" .
+               "Allow: /\n\n" .
+               "Disallow: /backend/\n" .
+               "Disallow: /storage/app/media/\n" .
+               "Disallow: /storage/app/uploads/\n\n" .
+               "Sitemap: {site_url}/sitemap.xml";
+    }
+
+    protected function getDefaultHtaccess()
+    {
+        return "# Enable rewrite engine\n" .
+               "RewriteEngine On\n\n" .
+               "# Handle frontend requests\n" .
+               "RewriteCond %{REQUEST_FILENAME} !-f\n" .
+               "RewriteCond %{REQUEST_FILENAME} !-d\n" .
+               "RewriteRule ^ index.php [L]\n\n" .
+               "# Security headers\n" .
+               "<IfModule mod_headers.c>\n" .
+               "    Header set X-Content-Type-Options \"nosniff\"\n" .
+               "    Header set X-XSS-Protection \"1; mode=block\"\n" .
+               "    Header set X-Frame-Options \"SAMEORIGIN\"\n" .
+               "    Header set Referrer-Policy \"strict-origin-when-cross-origin\"\n" .
+               "</IfModule>\n\n" .
+               "# Disable directory browsing\n" .
+               "Options -Indexes\n\n" .
+               "# Protect sensitive files\n" .
+               "<FilesMatch \"^\.\">\n" .
+               "    Order allow,deny\n" .
+               "    Deny from all\n" .
+               "</FilesMatch>";
+    }
+
+    public function getSitemapUrls()
+    {
+        $urls = [];
+        $settings = $this->instance();
+
+        // Add CMS Pages
+        if ($settings->include_cms_pages) {
+            $pages = \Cms\Classes\Page::all();
+            foreach ($pages as $page) {
+                $urls[] = [
+                    'loc' => url($page->url),
+                    'lastmod' => $page->updated_at ? $page->updated_at->toW3CString() : null,
+                    'changefreq' => $settings->cms_pages_changefreq,
+                    'priority' => $settings->cms_pages_priority
+                ];
+            }
+        }
+
+        // Add Blog Posts
+        if ($settings->include_blog_posts && class_exists('\RainLab\Blog\Models\Post')) {
+            $posts = \RainLab\Blog\Models\Post::isPublished()->get();
+            foreach ($posts as $post) {
+                $urls[] = [
+                    'loc' => url($post->url),
+                    'lastmod' => $post->updated_at ? $post->updated_at->toW3CString() : null,
+                    'changefreq' => $settings->blog_posts_changefreq,
+                    'priority' => $settings->blog_posts_priority
+                ];
+            }
+        }
+
+        // Add Static Pages
+        if ($settings->include_static_pages && class_exists('\RainLab\Pages\Classes\Page')) {
+            $pages = \RainLab\Pages\Classes\Page::all();
+            foreach ($pages as $page) {
+                $urls[] = [
+                    'loc' => url($page->url),
+                    'lastmod' => $page->updated_at ? $page->updated_at->toW3CString() : null,
+                    'changefreq' => $settings->static_pages_changefreq,
+                    'priority' => $settings->static_pages_priority
+                ];
+            }
+        }
+
+        return $urls;
+    }
+
+    public function generateSitemap()
+    {
+        $urls = $this->getSitemapUrls();
+        
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
+        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
+        
+        foreach ($urls as $url) {
+            $xml .= '  <url>' . PHP_EOL;
+            $xml .= '    <loc>' . $url['loc'] . '</loc>' . PHP_EOL;
+            if ($url['lastmod']) {
+                $xml .= '    <lastmod>' . $url['lastmod'] . '</lastmod>' . PHP_EOL;
+            }
+            $xml .= '    <changefreq>' . $url['changefreq'] . '</changefreq>' . PHP_EOL;
+            $xml .= '    <priority>' . $url['priority'] . '</priority>' . PHP_EOL;
+            $xml .= '  </url>' . PHP_EOL;
+        }
+        
+        $xml .= '</urlset>';
+        
+        return $xml;
+    }
+
+    public function generateRobotsTxt()
+    {
+        $content = "User-agent: *\n";
+        $content .= "Allow: /\n\n";
+        $content .= "Sitemap: " . url('sitemap.xml');
+        
+        return $content;
+    }
+}

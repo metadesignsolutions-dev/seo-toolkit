@@ -1,0 +1,50 @@
+<style>
+    .how-to-use-pre code {
+        color: #2d3e50;
+        background: #f8f8f8;
+        display: block;
+        padding: 10px;
+        border-radius: 4px;
+        font-size: 13px;
+        line-height: 1.5;
+        overflow-x: auto;
+    }
+</style>
+<div class="callout callout-info">
+    <h4>How to Use SEO Meta/OG/Schema Tags</h4>
+    <ol>
+        <li>
+            <b>Add the SeoMeta component</b> to your layout or page:
+            <pre class="how-to-use-pre"><code>[seoMeta]
+==
+</code></pre>
+        </li>
+        <li>
+            <b>In your <code>&lt;head&gt;</code> section, add:</b>
+            <pre class="how-to-use-pre"><code>
+&lt;title&gt;{{ this.page.meta_title ?: seoMeta.site_title }}&lt;/title&gt;
+&lt;meta name="description" content="{{ this.page.meta_description ?: seoMeta.site_description }}"&gt;
+&lt;meta name="keywords" content="{{ this.page.meta_keywords ?: seoMeta.meta_keywords }}"&gt;
+&lt;meta property="og:title" content="{{ this.page.og_title ?: seoMeta.og_title }}"&gt;
+&lt;meta property="og:description" content="{{ this.page.og_description ?: seoMeta.og_description }}"&gt;
+&lt;meta property="og:image" content="{{ this.page.og_image ?: seoMeta.og_image }}"&gt;
+&lt;meta property="og:type" content="{{ this.page.og_type ?: seoMeta.og_type }}"&gt;
+&lt;meta name="twitter:title" content="{{ this.page.twitter_title ?: seoMeta.twitter_title ?: this.page.og_title ?: seoMeta.og_title }}"&gt;
+&lt;meta name="twitter:description" content="{{ this.page.twitter_description ?: seoMeta.twitter_description ?: this.page.og_description ?: seoMeta.og_description }}"&gt;
+&lt;meta name="twitter:card" content="{{ this.page.twitter_card ?: seoMeta.twitter_card ?: 'summary' }}"&gt;
+
+{% if this.page.schema_jsonld %}
+{{ this.page.schema_jsonld|raw }}
+{% elseif seoMeta.schema_custom_jsonld %}
+{{ seoMeta.schema_custom_jsonld|raw }}
+{% endif %}
+</code></pre>
+        </li>
+        <li>
+            <b>For page-specific tags</b>, add fields to your page and use <code>this.page.meta_title</code>, etc.
+        </li>
+    </ol>
+    <p>
+        <b>Tip:</b> If you only want global tags, just use the <code>seoMeta</code> variables. If you want to override per page, set the variables in your page or post.
+    </p>
+</div> 
