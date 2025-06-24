@@ -48,15 +48,6 @@ class Plugin extends PluginBase
     public function registerSettings()
     {
         return [
-            'seo' => [
-                'label' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.settings.seo.label'),
-                'description' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.settings.seo.description'),
-                'category' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.settings.category'),
-                'icon' => 'icon-search',
-                'class' => 'Metadesignsolutions\Mdsoctoberseo\Models\SeoSettings',
-                'order' => 500,
-                'keywords' => 'seo meta tags open graph twitter cards schema'
-            ],
             'documentation' => [
                 'label' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.settings.documentation.label'),
                 'description' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.settings.documentation.description'),
@@ -65,6 +56,16 @@ class Plugin extends PluginBase
                 'url' => Backend::url('metadesignsolutions/mdsoctoberseo/documentation'),
                 'order' => 501,
                 'keywords' => 'documentation guide manual help'
+            ],
+            'settings' => [
+                'label'       => Lang::get('metadesignsolutions.mdsoctoberseo::lang.settings.seo.label'),
+                'description' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.settings.seo.description'),
+                'category'    => Lang::get('metadesignsolutions.mdsoctoberseo::lang.settings.category'),
+                'icon'        => 'icon-magic',
+                'class'       => 'Metadesignsolutions\Mdsoctoberseo\Models\SeoSettings',
+                'order'       => 501,
+                'keywords'    => 'seo search engine optimization meta',
+                'permissions' => ['metadesignsolutions.mdsoctoberseo.manage_seo'],
             ],
             'sitemap' => [
                 'label'       => Lang::get('metadesignsolutions.mdsoctoberseo::lang.settings.sitemap.label'),
