@@ -17,7 +17,7 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "Metadesignsolutions\\Mdsoctoberseo\\": ""
+            "MetadesignSolutions\\Mdsoctoberseo\\": ""
         }
     }
 }

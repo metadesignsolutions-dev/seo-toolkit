@@ -1,4 +1,4 @@
-<?php namespace Metadesignsolutions\Mdsoctoberseo\Updates;
+<?php namespace MetadesignSolutions\Mdsoctoberseo\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;

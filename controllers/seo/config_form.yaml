@@ -9,7 +9,7 @@ name: SEO Settings
 form: $/metadesignsolutions/mdsoctoberseo/models/seosettings/fields.yaml
 
 # Model Class name
-modelClass: Metadesignsolutions\Mdsoctoberseo\Models\SeoSettings
+modelClass: MetadesignSolutions\Mdsoctoberseo\Models\SeoSettings
 
 # Default redirect location
 defaultRedirect: metadesignsolutions/mdsoctoberseo/seo

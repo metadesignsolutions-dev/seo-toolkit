@@ -1,8 +1,8 @@
-<?php namespace Metadesignsolutions\Mdsoctoberseo\Controllers;
+<?php namespace MetadesignSolutions\Mdsoctoberseo\Controllers;
 
 use Backend\Classes\Controller;
 use BackendMenu;
-use Metadesignsolutions\Mdsoctoberseo\Models\Redirect;
+use MetadesignSolutions\Mdsoctoberseo\Models\Redirect;
 use Flash;
 use Input;
 use Response;
@@ -23,7 +23,7 @@ class RedirectManager extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Metadesignsolutions.Mdsoctoberseo', 'mdsoctoberseo', 'redirectmanager');
+        BackendMenu::setContext('MetadesignSolutions.Mdsoctoberseo', 'mdsoctoberseo', 'redirectmanager');
         $this->pageTitle = Lang::get('metadesignsolutions.mdsoctoberseo::lang.redirect_manager.title');
     }
 

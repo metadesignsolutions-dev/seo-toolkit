@@ -5,7 +5,7 @@
  * Handles robots.txt read/write for Metadesign SEO plugin.
  * @see https://metadesignsolutions.com/
  */
-namespace Metadesignsolutions\Mdsoctoberseo\Classes;
+namespace MetadesignSolutions\Mdsoctoberseo\Classes;
 
 use Exception;
 

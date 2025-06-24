@@ -1,4 +1,4 @@
-<?php namespace Metadesignsolutions\Mdsoctoberseo\Models;
+<?php namespace MetadesignSolutions\Mdsoctoberseo\Models;
 
 use Model;
 

@@ -1,4 +1,4 @@
-<?php namespace Metadesignsolutions\Mdsoctoberseo\Controllers;
+<?php namespace MetadesignSolutions\Mdsoctoberseo\Controllers;
 
 use Backend\Classes\Controller;
 use BackendMenu;
@@ -24,7 +24,7 @@ class Seo extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Metadesignsolutions.Mdsoctoberseo', 'mdsoctoberseo');
+        BackendMenu::setContext('MetadesignSolutions.Mdsoctoberseo', 'mdsoctoberseo');
         $this->pageTitle = Lang::get('metadesignsolutions.mdsoctoberseo::lang.seo_manager.title');
     }
 

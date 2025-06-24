@@ -1,4 +1,4 @@
-modelClass: Metadesignsolutions\Mdsoctoberseo\Models\Redirect
+modelClass: MetadesignSolutions\Mdsoctoberseo\Models\Redirect
 defaultRedirect: metadesignsolutions/mdsoctoberseo/redirectmanager
 form:
     fields:

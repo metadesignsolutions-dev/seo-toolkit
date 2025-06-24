@@ -1,4 +1,4 @@
-<?php namespace Metadesignsolutions\Mdsoctoberseo\Models;
+<?php namespace MetadesignSolutions\Mdsoctoberseo\Models;
 
 use Url;
 use Model;
@@ -6,7 +6,7 @@ use Event;
 use Request;
 use DOMDocument;
 use Cms\Classes\Theme;
-use Metadesignsolutions\Mdsoctoberseo\Classes\DefinitionItem;
+use MetadesignSolutions\Mdsoctoberseo\Classes\DefinitionItem;
 
 /**
  * Definition Model
@@ -50,7 +50,7 @@ class Definition extends Model
 
     /**
      * @var array The sitemap items.
-     * Items are objects of the \Metadesignsolutions\Mdsoctoberseo\Classes\DefinitionItem class.
+     * Items are objects of the \MetadesignSolutions\Mdsoctoberseo\Classes\DefinitionItem class.
      */
     public $items;
 

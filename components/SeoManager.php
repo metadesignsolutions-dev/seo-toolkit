@@ -1,7 +1,7 @@
-<?php namespace Metadesignsolutions\Mdsoctoberseo\Components;
+<?php namespace MetadesignSolutions\Mdsoctoberseo\Components;
 
 use Cms\Classes\ComponentBase;
-use Metadesignsolutions\Mdsoctoberseo\Models\SeoSettings;
+use MetadesignSolutions\Mdsoctoberseo\Models\SeoSettings;
 use Lang;
 
 class SeoManager extends ComponentBase

@@ -4,7 +4,7 @@
  * SitemapService
  * Generates XML sitemap for SEO.
  */
-namespace Metadesignsolutions\Mdsoctoberseo\Classes;
+namespace MetadesignSolutions\Mdsoctoberseo\Classes;
 
 use Metadesignsolutions\Mdsoctoberseo\Models\SeoSettings;
 use Cms\Classes\Page;

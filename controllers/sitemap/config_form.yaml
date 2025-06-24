@@ -1,4 +1,4 @@
-modelClass: Metadesignsolutions\Mdsoctoberseo\Models\Definition
+modelClass: MetadesignSolutions\Mdsoctoberseo\Models\Definition
 defaultRedirect: metadesignsolutions/mdsoctoberseo/sitemap
 
 form:

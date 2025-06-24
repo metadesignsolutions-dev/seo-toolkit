@@ -1,8 +1,8 @@
-<?php namespace Metadesignsolutions\Mdsoctoberseo\Components;
+<?php namespace MetadesignSolutions\Mdsoctoberseo\Components;
 
 use Cms\Classes\ComponentBase;
 use Cache;
-use Metadesignsolutions\Mdsoctoberseo\Models\SitemapSettings;
+use MetadesignSolutions\Mdsoctoberseo\Models\SitemapSettings;
 use Response;
 use Lang;
 

@@ -7,9 +7,9 @@ declare(strict_types=1);
  * Analyzes SEO score for a page.
  * @see https://metadesignsolutions.com/
  */
-namespace Metadesignsolutions\Mdsoctoberseo\Classes;
+namespace MetadesignSolutions\Mdsoctoberseo\Classes;
 
-use Metadesignsolutions\Mdsoctoberseo\Models\SeoSettings; // Import SeoSettings model
+use MetadesignSolutions\Mdsoctoberseo\Models\SeoSettings; // Import SeoSettings model
 use Exception;
 
 class SeoScoreService
@@ -35,7 +35,7 @@ class SeoScoreService
         $suggestions = [];
 
         // Determine which fields to check based on the object type
-        $isSettings = $object instanceof \Metadesignsolutions\Mdsoctoberseo\Models\SeoSettings;
+        $isSettings = $object instanceof \MetadesignSolutions\Mdsoctoberseo\Models\SeoSettings;
         $titleFields = $isSettings
             ? ['site_title', 'og_title', 'twitter_title']
             : ['seo_title', 'og_title', 'twitter_title'];

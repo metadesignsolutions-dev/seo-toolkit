@@ -1,4 +1,4 @@
-modelClass: Metadesignsolutions\Mdsoctoberseo\Models\SeoSettings
+modelClass: MetadesignSolutions\Mdsoctoberseo\Models\SeoSettings
 defaultRedirect: metadesignsolutions/mdsoctoberseo/seo
 noRecordsMessage: 'No records found'
 showSetup: true

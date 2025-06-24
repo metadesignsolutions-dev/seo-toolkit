@@ -4,9 +4,9 @@
  * RedirectService
  * Handles redirect logic for Metadesign SEO plugin.
  */
-namespace Metadesignsolutions\Mdsoctoberseo\Classes;
+namespace MetadesignSolutions\Mdsoctoberseo\Classes;
 
-use Metadesignsolutions\Mdsoctoberseo\Models\Redirect;
+use MetadesignSolutions\Mdsoctoberseo\Models\Redirect;
 use Exception;
 
 class RedirectService

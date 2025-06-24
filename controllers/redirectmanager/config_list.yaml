@@ -6,7 +6,7 @@
 list: $/metadesignsolutions/mdsoctoberseo/models/redirect/columns.yaml
 
 # Model Class name
-modelClass: Metadesignsolutions\Mdsoctoberseo\Models\Redirect
+modelClass: MetadesignSolutions\Mdsoctoberseo\Models\Redirect
 
 # List Title
 title: Manage Redirects

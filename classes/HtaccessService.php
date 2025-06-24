@@ -1,4 +1,4 @@
-<?php namespace Metadesignsolutions\Mdsoctoberseo\Classes;
+<?php namespace MetadesignSolutions\Mdsoctoberseo\Classes;
 
 use Exception;
 use File;

@@ -1,4 +1,4 @@
-<?php namespace Metadesignsolutions\Mdsoctoberseo;
+<?php namespace MetadesignSolutions\Mdsoctoberseo;
 
 use Backend;
 use BackendAuth;
@@ -28,10 +28,10 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-            'Metadesignsolutions\Mdsoctoberseo\Components\MetaTags' => 'metaTags',
-            'Metadesignsolutions\Mdsoctoberseo\Components\SeoManager' => 'seoManager',
-            'Metadesignsolutions\Mdsoctoberseo\Components\SchemaJsonLd' => 'schemaJsonLd',
-            'Metadesignsolutions\Mdsoctoberseo\Components\SitemapGenerator' => 'sitemapGenerator'
+            'MetadesignSolutions\Mdsoctoberseo\Components\MetaTags' => 'metaTags',
+            'MetadesignSolutions\Mdsoctoberseo\Components\SeoManager' => 'seoManager',
+            'MetadesignSolutions\Mdsoctoberseo\Components\SchemaJsonLd' => 'schemaJsonLd',
+            'MetadesignSolutions\Mdsoctoberseo\Components\SitemapGenerator' => 'sitemapGenerator'
         ];
     }
 
@@ -62,7 +62,7 @@ class Plugin extends PluginBase
                 'description' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.settings.seo.description'),
                 'category'    => Lang::get('metadesignsolutions.mdsoctoberseo::lang.settings.category'),
                 'icon'        => 'icon-magic',
-                'class'       => 'Metadesignsolutions\Mdsoctoberseo\Models\SeoSettings',
+                'class'       => 'MetadesignSolutions\Mdsoctoberseo\Models\SeoSettings',
                 'order'       => 501,
                 'keywords'    => 'seo search engine optimization meta',
                 'permissions' => ['metadesignsolutions.mdsoctoberseo.manage_seo'],
@@ -72,7 +72,7 @@ class Plugin extends PluginBase
                 'description' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.settings.sitemap.description'),
                 'category'    => Lang::get('metadesignsolutions.mdsoctoberseo::lang.settings.category'),
                 'icon'        => 'icon-shield',
-                'class'       => 'Metadesignsolutions\Mdsoctoberseo\Models\SitemapSettings',
+                'class'       => 'MetadesignSolutions\Mdsoctoberseo\Models\SitemapSettings',
                 'order'       => 502,
                 'permissions' => ['metadesignsolutions.mdsoctoberseo.manage_seo'],
             ],
@@ -101,12 +101,12 @@ class Plugin extends PluginBase
     {
         // Register the redirect middleware
         $this->app['Illuminate\Contracts\Http\Kernel']
-             ->pushMiddleware(\Metadesignsolutions\Mdsoctoberseo\Middleware\RedirectMiddleware::class);
+             ->pushMiddleware(\MetadesignSolutions\Mdsoctoberseo\Middleware\RedirectMiddleware::class);
 
         // Register sitemap.xml and robots.txt routes
         Event::listen('cms.page.beforeDisplay', function($controller, $url, $page) {
             if ($url === 'sitemap.xml' || $url === 'robots.txt') {
-                $component = new \Metadesignsolutions\Mdsoctoberseo\Components\SitemapGenerator($controller);
+                $component = new \MetadesignSolutions\Mdsoctoberseo\Components\SitemapGenerator($controller);
                 return $component->onRun();
             }
         });
@@ -199,36 +199,33 @@ class Plugin extends PluginBase
                     'comment' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.seo_score_comment'),
                     'tab' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.seo_tab'),
                     'span' => 'right',
+                    'dependsOn' => ['seo_title', 'seo_description', 'seo_keywords', 'og_title', 'og_description', 'og_image', 'og_type', 'twitter_title', 'twitter_description', 'twitter_card'],
                     'vars' => [
                         'formModel' => $widget->model
                     ]
                 ],
-
-                // --- SEO Content Section ---
-                'seo_fields_section' => [
+                // --- Content Section ---
+                'seo_content_section' => [
                     'tab' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.seo_tab'),
                     'type' => 'section',
                     'label' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.content_section'),
-                    'cssClass' => 'section-content'
+                    'span' => 'full'
                 ],
                 'seo_title' => [
                     'label' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.seo_title'),
                     'type' => 'text',
                     'tab' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.seo_tab'),
                     'span' => 'left',
-                    'rules' => [
-                        'required',
-                        'regex:/^.{30,60}$/'
-                    ],
-                    'validationMessages' => [
+                    'size' => 'large',
+                    'validation' => [
                         'required' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.validation.seo_title_required'),
                         'regex' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.validation.seo_title_length')
                     ],
                     'comment' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.seo_title_comment'),
-                    'attributes' => [
-                        'data-min-length' => '30',
-                        'data-max-length' => '60',
-                        'class' => 'form-control seo-title-field'
+                    'trigger' => [
+                        'action' => 'show',
+                        'field' => 'seo_title',
+                        'condition' => 'value[filled]'
                     ]
                 ],
                 'seo_description' => [
@@ -236,20 +233,16 @@ class Plugin extends PluginBase
                     'type' => 'textarea',
                     'tab' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.seo_tab'),
                     'span' => 'right',
-                    'size' => 'small',
-                    'rules' => [
-                        'required',
-                        'regex:/^.{120,160}$/'
-                    ],
-                    'validationMessages' => [
+                    'size' => 'large',
+                    'validation' => [
                         'required' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.validation.seo_description_required'),
                         'regex' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.validation.seo_description_length')
                     ],
                     'comment' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.seo_description_comment'),
-                    'attributes' => [
-                        'data-min-length' => '120',
-                        'data-max-length' => '160',
-                        'class' => 'form-control seo-description-field'
+                    'trigger' => [
+                        'action' => 'show',
+                        'field' => 'seo_description',
+                        'condition' => 'value[filled]'
                     ]
                 ],
                 'seo_keywords' => [
@@ -258,22 +251,17 @@ class Plugin extends PluginBase
                     'tab' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.seo_tab'),
                     'span' => 'left',
                     'validation' => [
-                        'regex' => [
-                            'pattern' => '^[a-zA-Z0-9\s,]{0,255}$',
-                            'message' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.validation.seo_keywords_format')
-                        ]
+                        'message' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.validation.seo_keywords_format')
                     ],
                     'comment' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.seo_keywords_comment')
                 ],
-
-                // --- Social Media Section (Open Graph + Twitter) ---
-                'social_section' => [
+                // --- Social Media Section ---
+                'seo_social_section' => [
                     'tab' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.seo_tab'),
                     'type' => 'section',
                     'label' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.social_section'),
-                    'cssClass' => 'section-content'
+                    'span' => 'full'
                 ],
-                // Open Graph fields
                 'og_title' => [
                     'label' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.og_title'),
                     'type' => 'text',
@@ -283,8 +271,7 @@ class Plugin extends PluginBase
                 ],
                 'og_image' => [
                     'label' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.og_image'),
-                    'type' => 'mediafinder',
-                    'mode' => 'image',
+                    'type' => 'fileupload',
                     'tab' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.seo_tab'),
                     'span' => 'right',
                     'comment' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.og_image_comment')
@@ -294,7 +281,6 @@ class Plugin extends PluginBase
                     'type' => 'textarea',
                     'tab' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.seo_tab'),
                     'span' => 'left',
-                    'size' => 'small',
                     'comment' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.og_description_comment')
                 ],
                 'og_type' => [
@@ -309,10 +295,8 @@ class Plugin extends PluginBase
                         'book' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.og_type_book'),
                         'video' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.og_type_video')
                     ],
-                    'default' => 'website',
                     'comment' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.og_type_comment')
                 ],
-                // Twitter Card fields
                 'twitter_title' => [
                     'label' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.twitter_title'),
                     'type' => 'text',
@@ -325,7 +309,6 @@ class Plugin extends PluginBase
                     'type' => 'textarea',
                     'tab' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.seo_tab'),
                     'span' => 'right',
-                    'size' => 'small',
                     'comment' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.twitter_description_comment')
                 ],
                 'twitter_card' => [
@@ -339,25 +322,27 @@ class Plugin extends PluginBase
                         'app' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.twitter_card_app'),
                         'player' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.twitter_card_player')
                     ],
-                    'default' => 'summary_large_image',
                     'comment' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.twitter_card_comment')
                 ],
-
-                // --- Schema Section (Advanced) ---
-                'schema_section' => [
+                // --- Schema Section ---
+                'seo_schema_section' => [
                     'tab' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.seo_tab'),
                     'type' => 'section',
                     'label' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.schema_section'),
-                    'cssClass' => 'section-content',
-                    'comment' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.schema_section_comment')
+                    'comment' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.schema_section_comment'),
+                    'span' => 'full'
                 ],
-                'schema_jsonld' => [
-                    'label' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.schema_jsonld'),
-                    'type' => 'textarea',
+                'schema_json_ld' => [
+                    'label' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.schema_json_ld'),
+                    'type' => 'partial',
+                    'path' => '$/metadesignsolutions/mdsoctoberseo/models/_schema_jsonld_preview.htm',
+                    'comment' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.schema_json_ld_comment'),
                     'tab' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.seo_tab'),
                     'span' => 'full',
-                    'size' => 'large',
-                    'comment' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.fields.schema_jsonld_comment')
+                    'dependsOn' => ['seo_title', 'seo_description', 'seo_keywords', 'og_title', 'og_description', 'og_image', 'og_type', 'twitter_title', 'twitter_description', 'twitter_card'],
+                    'vars' => [
+                        'formModel' => $widget->model
+                    ]
                 ]
             ]);
         });
@@ -386,11 +371,33 @@ class Plugin extends PluginBase
     {
         return [
             'mdsoctoberseo' => [
-                'label'       => Lang::get('metadesignsolutions.mdsoctoberseo::lang.navigation.label'),
-                'url'         => Backend::url('system/settings/update/metadesignsolutions/mdsoctoberseo/settings'),
+                'label'       => Lang::get('metadesignsolutions.mdsoctoberseo::lang.navigation.main_menu'),
+                'url'         => Backend::url('metadesignsolutions/mdsoctoberseo/seo'),
                 'icon'        => 'icon-search',
                 'permissions' => ['metadesignsolutions.mdsoctoberseo.manage_seo'],
                 'order'       => 500,
+                'sideMenu' => [
+                    'seo' => [
+                        'label' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.navigation.seo_manager'),
+                        'icon'  => 'icon-search',
+                        'url'   => Backend::url('metadesignsolutions/mdsoctoberseo/seo'),
+                    ],
+                    'redirectmanager' => [
+                        'label' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.navigation.redirect_manager'),
+                        'icon'  => 'icon-random',
+                        'url'   => Backend::url('metadesignsolutions/mdsoctoberseo/redirectmanager'),
+                    ],
+                    'sitemap' => [
+                        'label' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.navigation.sitemap_manager'),
+                        'icon'  => 'icon-sitemap',
+                        'url'   => Backend::url('metadesignsolutions/mdsoctoberseo/sitemap'),
+                    ],
+                    'documentation' => [
+                        'label' => Lang::get('metadesignsolutions.mdsoctoberseo::lang.navigation.documentation'),
+                        'icon'  => 'icon-book',
+                        'url'   => Backend::url('metadesignsolutions/mdsoctoberseo/documentation'),
+                    ]
+                ]
             ]
         ];
     }

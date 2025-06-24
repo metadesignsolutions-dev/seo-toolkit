@@ -1,7 +1,7 @@
-<?php namespace Metadesignsolutions\Mdsoctoberseo\Middleware;
+<?php namespace MetadesignSolutions\Mdsoctoberseo\Middleware;
 
 use Closure;
-use Metadesignsolutions\Mdsoctoberseo\Models\Redirect;
+use MetadesignSolutions\Mdsoctoberseo\Models\Redirect;
 
 class RedirectMiddleware
 {

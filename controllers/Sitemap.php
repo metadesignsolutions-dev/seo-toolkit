@@ -1,9 +1,9 @@
-<?php namespace Metadesignsolutions\Mdsoctoberseo\Controllers;
+<?php namespace MetadesignSolutions\Mdsoctoberseo\Controllers;
 
 use Backend\Classes\Controller;
 use BackendMenu;
-use Metadesignsolutions\Mdsoctoberseo\Models\Definition;
-use Metadesignsolutions\Mdsoctoberseo\Classes\DefinitionItem;
+use MetadesignSolutions\Mdsoctoberseo\Models\Definition;
+use MetadesignSolutions\Mdsoctoberseo\Classes\DefinitionItem;
 use Cache;
 use Flash;
 use File;
@@ -24,7 +24,7 @@ class Sitemap extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Metadesignsolutions.Mdsoctoberseo', 'seo', 'sitemap');
+        BackendMenu::setContext('MetadesignSolutions.Mdsoctoberseo', 'seo', 'sitemap');
         $this->pageTitle = Lang::get('metadesignsolutions.mdsoctoberseo::lang.sitemap_manager.title');
     }
 
