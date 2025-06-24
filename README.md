@@ -139,4 +139,4 @@ The plugin includes automatic updates through OctoberCMS:
 
 ---
 
-**© 2025 [MetaDesign Solutions](https://metadesignsolutions.com/). All rights reserved.**
+**© 2025 [MetaDesign Solutions Pvt Ltd](https://metadesignsolutions.com/). All rights reserved.**
