@@ -111,6 +111,35 @@ class Plugin extends PluginBase
             }
         });
 
+        // Add copyright notices to settings pages
+        Event::listen('backend.form.extendFields', function ($widget) {
+            // Check if this is a settings form for our plugin
+            $controller = $widget->getController();
+            if (!$controller) {
+                return;
+            }
+
+            $controllerClass = get_class($controller);
+            $isSettingsController = strpos($controllerClass, 'System\Controllers\Settings') !== false;
+            
+            if ($isSettingsController) {
+                // Add copyright notice to settings forms
+                $widget->addFields([
+                    'copyright_section' => [
+                        'type' => 'section',
+                        'label' => '',
+                        'span' => 'full',
+                        'cssClass' => 'section-copyright'
+                    ],
+                    'copyright_notice' => [
+                        'type' => 'partial',
+                        'path' => '$/metadesignsolutions/mdsoctoberseo/models/_copyright_notice.htm',
+                        'span' => 'full'
+                    ]
+                ]);
+            }
+        });
+
         // Extend backend forms with SEO fields
         Event::listen('backend.form.extendFields', function ($widget) {
             // Only for backend forms with a model

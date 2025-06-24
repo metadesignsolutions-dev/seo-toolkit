@@ -15,7 +15,7 @@ title: Manage Redirects
 recordUrl: metadesignsolutions/mdsoctoberseo/redirectmanager/update/:id
 
 # Message to display if the list is empty
-noRecordsMessage: backend::lang.list.no_records
+noRecordsMessage: 'No redirects found. <br><small class="text-muted">SEO Toolkit by MetaDesign Solutions</small>'
 
 # Records to display per page
 recordsPerPage: 20

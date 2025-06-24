@@ -1,6 +1,6 @@
 modelClass: MetadesignSolutions\Mdsoctoberseo\Models\SeoSettings
 defaultRedirect: metadesignsolutions/mdsoctoberseo/seo
-noRecordsMessage: 'No records found'
+noRecordsMessage: 'No SEO settings found. <br><small class="text-muted">SEO Toolkit by MetaDesign Solutions</small>'
 showSetup: true
 showCheckboxes: true
 toolbar:
