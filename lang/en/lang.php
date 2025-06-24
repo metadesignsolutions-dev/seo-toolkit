@@ -2,7 +2,7 @@
 
 return [
     'plugin' => [
-        'name' => 'Best SEO Toolkit',
+        'name' => 'SEO Toolkit',
         'description' => 'Advanced SEO and redirection toolkit with robots.txt and sitemap control'
     ],
     'permissions' => [
