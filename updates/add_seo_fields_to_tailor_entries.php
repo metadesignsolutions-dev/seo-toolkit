@@ -22,6 +22,7 @@ class AddSeoFieldsToTailorEntries extends Migration
             
             if (Schema::hasTable($tableName)) {
                 Schema::table($tableName, function($table) use ($tableName) {
+                    // Basic SEO fields
                     if (!Schema::hasColumn($tableName, 'seo_title')) {
                         $table->string('seo_title')->nullable();
                     }
@@ -33,6 +34,31 @@ class AddSeoFieldsToTailorEntries extends Migration
                     }
                     if (!Schema::hasColumn($tableName, 'seo_image')) {
                         $table->string('seo_image')->nullable();
+                    }
+                    
+                    // Open Graph fields
+                    if (!Schema::hasColumn($tableName, 'og_title')) {
+                        $table->string('og_title')->nullable();
+                    }
+                    if (!Schema::hasColumn($tableName, 'og_description')) {
+                        $table->text('og_description')->nullable();
+                    }
+                    if (!Schema::hasColumn($tableName, 'og_image')) {
+                        $table->string('og_image')->nullable();
+                    }
+                    if (!Schema::hasColumn($tableName, 'og_type')) {
+                        $table->string('og_type')->nullable();
+                    }
+                    
+                    // Twitter/X fields
+                    if (!Schema::hasColumn($tableName, 'twitter_title')) {
+                        $table->string('twitter_title')->nullable();
+                    }
+                    if (!Schema::hasColumn($tableName, 'twitter_description')) {
+                        $table->text('twitter_description')->nullable();
+                    }
+                    if (!Schema::hasColumn($tableName, 'twitter_card')) {
+                        $table->string('twitter_card')->nullable();
                     }
                 });
             }
@@ -56,7 +82,14 @@ class AddSeoFieldsToTailorEntries extends Migration
                         'seo_title',
                         'seo_description',
                         'seo_keywords',
-                        'seo_image'
+                        'seo_image',
+                        'og_title',
+                        'og_description',
+                        'og_image',
+                        'og_type',
+                        'twitter_title',
+                        'twitter_description',
+                        'twitter_card'
                     ]);
                 });
             }

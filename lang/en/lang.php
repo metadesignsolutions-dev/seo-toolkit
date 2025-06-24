@@ -40,7 +40,11 @@ return [
         ]
     ],
     'navigation' => [
-        'label' => 'SEO Toolkit'
+        'main_menu' => 'SEO Toolkit',
+        'seo_manager' => 'SEO Manager',
+        'redirect_manager' => 'Redirect Manager',
+        'sitemap_manager' => 'Sitemap Manager',
+        'documentation' => 'Documentation'
     ],
     'seo_manager' => [
         'title' => 'SEO Manager'

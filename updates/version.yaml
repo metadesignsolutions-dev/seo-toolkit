@@ -13,3 +13,6 @@
 1.0.5:
     - Add OG, Twitter, and Schema fields to xc_ tables
     - add_seo_columns_to_content.php
+1.0.6:
+    - Add complete SEO fields to Tailor entries
+    - add_seo_fields_to_tailor_entries.php

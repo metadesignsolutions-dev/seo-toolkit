@@ -24,7 +24,7 @@ class Sitemap extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('MetadesignSolutions.Mdsoctoberseo', 'seo', 'sitemap');
+        BackendMenu::setContext('MetadesignSolutions.Mdsoctoberseo', 'mdsoctoberseo', 'sitemap');
         $this->pageTitle = Lang::get('metadesignsolutions.mdsoctoberseo::lang.sitemap_manager.title');
     }
 

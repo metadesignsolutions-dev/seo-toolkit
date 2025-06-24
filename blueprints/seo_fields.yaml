@@ -28,3 +28,59 @@ fields:
         mode: image
         span: full
         tab: SEO
+
+    # Open Graph Fields
+    og_title:
+        label: OG Title
+        type: text
+        span: full
+        tab: SEO
+
+    og_description:
+        label: OG Description
+        type: textarea
+        span: full
+        tab: SEO
+
+    og_image:
+        label: OG Image
+        type: mediafinder
+        mode: image
+        span: full
+        tab: SEO
+
+    og_type:
+        label: OG Type
+        type: dropdown
+        options:
+            website: Website
+            article: Article
+            profile: Profile
+            book: Book
+            video: Video
+        span: full
+        tab: SEO
+
+    # Twitter/X Fields
+    twitter_title:
+        label: X Title
+        type: text
+        span: full
+        tab: SEO
+
+    twitter_description:
+        label: X Description
+        type: textarea
+        span: full
+        tab: SEO
+
+    twitter_card:
+        label: X Card Type
+        type: dropdown
+        options:
+            summary: Summary
+            summary_large_image: Summary Large Image
+            app: App
+            player: Player
+        span: full
+        tab: SEO
