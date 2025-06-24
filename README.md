@@ -1,6 +1,6 @@
 # Best SEO Toolkit
 ## metadesignsolutions/mdsoctoberseo
-A comprehensive SEO plugin for October CMS that provides advanced meta tag management, Open Graph, Twitter cards, schema JSON-LD, redirects, robots.txt, and sitemap features. Developed by MetaDesign Solutions.
+A comprehensive SEO plugin for October CMS that provides advanced meta tag management, Open Graph, Twitter cards, schema JSON-LD, redirects, robots.txt, and sitemap features. Developed by <a href="https://metadesignsolutions.com/">Metadesign Solutions</a>.
 
 ---
 
@@ -138,4 +138,4 @@ The plugin includes automatic updates through OctoberCMS:
 
 ---
 
-**© 2025 Meta Design Solutions. All rights reserved.**
+**© 2025 Metadesign Solutions. All rights reserved.**
