@@ -3,9 +3,8 @@
     "type": "october-plugin",
     "description": "Advanced SEO plugin for October CMS with meta tags, Open Graph, Twitter cards, schema JSON-LD, redirects, robots.txt, and sitemap features.",
     "require": {
-        "php": ">=8.0",
         "composer/installers": "~1.0",
-        "october/rain": "^3.1"
+        "october/rain": ">=3.1"
     },
     "license": "MIT",
     "authors": [
