@@ -1,7 +1,7 @@
 {
     "name": "metadesignsolutions/mdsoctoberseo-plugin",
     "type": "october-plugin",
-    "description": "Advanced SEO plugin for October CMS with meta tags, Open Graph, Twitter cards, schema JSON-LD, redirects, robots.txt, and sitemap features. Developed by MetaDesign Solutions.",
+    "description": "Advanced SEO plugin for October CMS with meta tags, Open Graph, Twitter cards, schema JSON-LD, redirects, robots.txt, and sitemap features.",
     "require": {
         "php": ">=8.0",
         "composer/installers": "~1.0",
@@ -11,8 +11,7 @@
     "authors": [
         {
             "name": "MetaDesign Solutions Pvt Ltd",
-            "email": "sales@metadesignsolutions.com",
-            "homepage": "https://metadesignsolutions.com"
+            "email": "sales@metadesignsolutions.com"
         }
     ],
     "minimum-stability": "stable",
@@ -21,23 +20,5 @@
         "psr-4": {
             "Metadesignsolutions\\Mdsoctoberseo\\": ""
         }
-    },
-    "keywords": [
-        "octobercms",
-        "october-cms",
-        "seo",
-        "meta-tags",
-        "open-graph",
-        "twitter-cards",
-        "schema-json-ld",
-        "redirects",
-        "sitemap",
-        "robots-txt"
-    ],
-    "homepage": "https://metadesignsolutions.com",
-    "support": {
-        "email": "sales@metadesignsolutions.com",
-        "issues": "https://github.com/metadesignsolutions/mdsoctoberseo/issues",
-        "source": "https://github.com/metadesignsolutions/mdsoctoberseo"
     }
-} 
+}
