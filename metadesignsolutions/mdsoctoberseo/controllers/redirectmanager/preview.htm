@@ -1,0 +1,9 @@
+<div class="preview-container">
+    <h3><?= __("Redirect Preview") ?></h3>
+    <p><strong><?= __("From URL:") ?></strong> <?= e($redirect->from_url) ?></p>
+    <p><strong><?= __("To URL:") ?></strong> <?= e($redirect->to_url) ?></p>
+    <p><strong><?= __("Status Code:") ?></strong> <?= e($redirect->status_code) ?></p>
+    <a href="<?= Backend::url('metadesignsolutions/mdsoctoberseo/redirectmanager') ?>" class="btn btn-link">
+        <?= __("Back to List") ?>
+    </a>
+</div>

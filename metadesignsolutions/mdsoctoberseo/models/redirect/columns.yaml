@@ -1,0 +1,16 @@
+columns:
+    from_url:
+        label: From URL
+        type: text
+
+    to_url:
+        label: To URL
+        type: text
+
+    status_code:
+        label: HTTP Status Code
+        type: number
+
+    is_active:
+        label: Active
+        type: switch

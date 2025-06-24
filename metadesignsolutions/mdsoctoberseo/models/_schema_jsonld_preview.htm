@@ -1,0 +1,112 @@
+<div class="form-group">
+    <label>JSON-LD Preview</label>
+    <textarea id="schema-jsonld-preview" class="form-control" rows="12" readonly></textarea>
+    <small class="form-text text-muted">This is the JSON-LD structured data generated from your settings above.</small>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Helper to show/hide fields
+    function toggleFields(type) {
+    var orgFields = ['schema_logo', 'schema_contact_email', 'schema_contact_phone', 'schema_address_street', 'schema_address_city', 'schema_address_region', 'schema_address_postal', 'schema_address_country'];
+    var personFields = ['schema_contact_email', 'schema_contact_phone'];
+    var productFields = ['schema_name', 'schema_url', 'schema_logo'];
+    var websiteFields = ['schema_name', 'schema_url'];
+
+    // Hide all
+    orgFields.concat(personFields, productFields, websiteFields).forEach(function(field) {
+        var row = document.querySelector('[data-field-name="'+field+'"]');
+        if (row) row.style.display = 'none';
+    });
+
+    // Show relevant
+    if (type === 'Organization') {
+        orgFields.concat(websiteFields).forEach(function(field) {
+            var row = document.querySelector('[data-field-name="'+field+'"]');
+            if (row) row.style.display = '';
+        });
+    } else if (type === 'Person') {
+        personFields.forEach(function(field) {
+            var row = document.querySelector('[data-field-name="'+field+'"]');
+            if (row) row.style.display = '';
+        });
+    } else if (type === 'Product') {
+        productFields.forEach(function(field) {
+            var row = document.querySelector('[data-field-name="'+field+'"]');
+            if (row) row.style.display = '';
+        });
+    } else if (type === 'WebSite') {
+        websiteFields.forEach(function(field) {
+            var row = document.querySelector('[data-field-name="'+field+'"]');
+            if (row) row.style.display = '';
+        });
+    }
+}
+
+    function updateJsonLd() {
+        var type = document.querySelector('[name*="[schema_type]"]')?.value || "WebSite";
+        var name = document.querySelector('[name*="[schema_name]"]')?.value || "";
+        var url = document.querySelector('[name*="[schema_url]"]')?.value || "";
+        var logo = document.querySelector('[name*="[schema_logo]"]')?.value || "";
+        var email = document.querySelector('[name*="[schema_contact_email]"]')?.value || "";
+        var phone = document.querySelector('[name*="[schema_contact_phone]"]')?.value || "";
+        var street = document.querySelector('[name*="[schema_address_street]"]')?.value || "";
+        var city = document.querySelector('[name*="[schema_address_city]"]')?.value || "";
+        var region = document.querySelector('[name*="[schema_address_region]"]')?.value || "";
+        var postal = document.querySelector('[name*="[schema_address_postal]"]')?.value || "";
+        var country = document.querySelector('[name*="[schema_address_country]"]')?.value || "";
+
+        var jsonld = {
+            "@context": "https://schema.org",
+            "@type": type
+        };
+
+        if (type === "WebSite") {
+            jsonld.name = name;
+            jsonld.url = url;
+        } else if (type === "Organization") {
+            jsonld.name = name;
+            jsonld.url = url;
+            if (logo) jsonld.logo = logo;
+            if (email || phone) {
+                jsonld.contactPoint = {};
+                if (email) jsonld.contactPoint.email = email;
+                if (phone) jsonld.contactPoint.telephone = phone;
+            }
+            if (street || city || region || postal || country) {
+                jsonld.address = {
+                    "@type": "PostalAddress",
+                    "streetAddress": street,
+                    "addressLocality": city,
+                    "addressRegion": region,
+                    "postalCode": postal,
+                    "addressCountry": country
+                };
+            }
+        } else if (type === "Person") {
+            jsonld.name = name;
+            if (email) jsonld.email = email;
+            if (phone) jsonld.telephone = phone;
+        } else if (type === "Product") {
+            jsonld.name = name;
+            jsonld.url = url;
+            if (logo) jsonld.image = logo;
+        }
+
+        document.getElementById('schema-jsonld-preview').value = JSON.stringify(jsonld, null, 2);
+        toggleFields(type);
+    }
+
+    // Attach event listeners to update preview on change
+    var fields = ['schema_type', 'schema_name', 'schema_url', 'schema_logo', 'schema_contact_email', 'schema_contact_phone', 'schema_address_street', 'schema_address_city', 'schema_address_region', 'schema_address_postal', 'schema_address_country'];
+    fields.forEach(function(field) {
+        var el = document.querySelector('[name*="['+field+']"]');
+        if (el) {
+            el.addEventListener('input', updateJsonLd);
+            el.addEventListener('change', updateJsonLd);
+        }
+    });
+
+    // Initial update
+    updateJsonLd();
+});
+</script>

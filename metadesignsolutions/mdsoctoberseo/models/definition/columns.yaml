@@ -1,0 +1,10 @@
+columns:
+    theme:
+        label: Theme
+        type: text
+    created_at:
+        label: Created
+        type: datetime
+    updated_at:
+        label: Updated
+        type: datetime 
